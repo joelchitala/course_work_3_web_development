@@ -30,7 +30,7 @@
 
     <section style="width: 100%;">
       <div style="width: 100%; display: inline-flex; align-items: center; justify-content: flex-start;">
-          <div style="align-self: flex-end; margin-right: 2rem;">
+          <!-- <div style="align-self: flex-end; margin-right: 2rem;">
               <button style="font-size: 1.15rem;" v-if="canRemoveFromCart" v-on:click="showCheckout">
                   {{cartItemCount}}
                   <i class="bx bx-cart"></i>
@@ -40,7 +40,7 @@
                   {{cartItemCount}}
                   <i class="bx bx-cart"></i>
               </button>
-          </div>
+          </div> -->
           <div id="search">
               <input type="text" v-bind:placeholder="searchTerm" v-if="search" v-model="searchInput">
               <button v-on:click="search"><i class='bx bx-search'></i></button>
@@ -83,6 +83,13 @@ const capitalize = (str) =>{
 
 export default {
   name: 'LessonComponent',
+  props:{
+        productItems: {
+            type: Array,
+            // default: () => [],
+        }
+    },
+  emits: ['add-cart'],
   created(){
     this.loadProducts()
   },
@@ -92,20 +99,11 @@ export default {
         this.showProducts = this.showProducts ? false : true
     },
     add_to_cart(item){
-        for (let i = 0; i < this.products.length; i++) {
-            const product = this.products[i]
-            if(item.id == product.id){
-                item.spaces--
-            }
-        }
-        
         const id = `${item.subject[0]}`+item.id+`${item.location[0]}`+Math.ceil(Math.random()*1000000)
         let data = {
             "id": id,
             "item":item,
         }
-
-        this.cart.push(data)
         this.$emit("add-cart",JSON.stringify(data))
     },
     search_func(query){
@@ -114,10 +112,10 @@ export default {
         if(val != "all" & query.trim() != ''){
 
             if(val != "price"){
-                this.product_copy = this.products.filter(x => x[val].toLowerCase().includes(query.toLowerCase()))
+                this.product_copy = this.productItems.filter(x => x[val].toLowerCase().includes(query.toLowerCase()))
             }else{
                 if(query.match(/^[0-9]+$/) != null){
-                    this.product_copy = this.products.filter(x => (''+x[val]).includes(query))
+                    this.product_copy = this.productItems.filter(x => (''+x[val]).includes(query))
                 }
             }
             this.order_sort(this.sort_value)
@@ -173,9 +171,7 @@ export default {
     loadProducts() {
       this.product_copy = []
 
-      // console.log(AppVue.data()["products"]);
-
-      this.products.forEach(x=>{
+      this.productItems.forEach(x=>{
         this.product_copy.push(x);
       })
     }
@@ -198,88 +194,7 @@ export default {
       },
       searchInput:'',
       searchTerm:'Please choose criteria eg. subject, location, price.',
-      products:[
-      {
-        id:1,
-        subject:"Art And Craft",
-        location:"London",
-        price:22,
-        spaces:5,
-        image:"art_and_craft.jpg"
-    },
-    {
-        id:2,
-        subject:"Sport",
-        location:"Oxford",
-        price:19,
-        spaces:5,
-        image:"sport.jpg"
-    },
-    {
-        id:3,
-        subject:"Music",
-        location:"London",
-        price:20,
-        spaces:5,
-        image:"music.jpg"
-    },
-    {
-        id:4,
-        subject:"Theater",
-        location:"York",
-        price:17,
-        spaces:5,
-        image:"theater.jpg"
-    },
-    {
-        id:5,
-        subject:"Coding And Programming",
-        location:"Bristol",
-        price:7,
-        spaces:5,
-        image:"coding.jpg"
-    },
-    {
-        id:6,
-        subject:"Cooking And Baking",
-        location:"London",
-        price:8,
-        spaces:5,
-        image:"cooking.jpg"
-    },
-    {
-        id:7,
-        subject:"Religous Activities",
-        location:"Manchester",
-        price:12,
-        spaces:5,
-        image:"religious.jpg"
-    },
-    {
-        id:8,
-        subject:"Community Services",
-        location:"Liverpool",
-        price:9,
-        spaces:5,
-        image:"community.jpg"
-    },
-    {
-        id:9,
-        subject:"Theater",
-        location:"London",
-        price:13,
-        spaces:5,
-        image:"theater.jpg"
-    },
-    {
-        id:10,
-        subject:"Music",
-        location:"Chelsey",
-        price:16,
-        spaces:5,
-        image:"music.jpg"
-    }
-      ],
+      
       product_copy:[],
       user_data:{
           name:"",
