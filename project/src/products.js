@@ -1,0 +1,82 @@
+let products = [
+    {
+        id:1,
+        subject:"Art And Craft",
+        location:"London",
+        price:22,
+        spaces:5,
+        image:"assets/art_and_craft.jpg"
+    },
+    {
+        id:2,
+        subject:"Sport",
+        location:"Oxford",
+        price:19,
+        spaces:5,
+        image:"assets/sport.jpg"
+    },
+    {
+        id:3,
+        subject:"Music",
+        location:"London",
+        price:20,
+        spaces:5,
+        image:"assets/music.jpg"
+    },
+    {
+        id:4,
+        subject:"Theater",
+        location:"York",
+        price:17,
+        spaces:5,
+        image:"assets/theater.jpg"
+    },
+    {
+        id:5,
+        subject:"Coding And Programming",
+        location:"Bristol",
+        price:7,
+        spaces:5,
+        image:"assets/coding.jpg"
+    },
+    {
+        id:6,
+        subject:"Cooking And Baking",
+        location:"London",
+        price:8,
+        spaces:5,
+        image:"assets/cooking.jpg"
+    },
+    {
+        id:7,
+        subject:"Religous Activities",
+        location:"Manchester",
+        price:12,
+        spaces:5,
+        image:"assets/religious.jpg"
+    },
+    {
+        id:8,
+        subject:"Community Services",
+        location:"Liverpool",
+        price:9,
+        spaces:5,
+        image:"assets/community.jpg"
+    },
+    {
+        id:9,
+        subject:"Theater",
+        location:"London",
+        price:13,
+        spaces:5,
+        image:"assets/theater.jpg"
+    },
+    {
+        id:10,
+        subject:"Music",
+        location:"Chelsey",
+        price:16,
+        spaces:5,
+        image:"assets/music.jpg"
+    }
+]
