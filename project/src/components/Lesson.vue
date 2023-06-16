@@ -56,7 +56,7 @@
                 <p>Location: {{item.location}}</p>
                 <p>Price: ${{item.price}}</p>
                 <p>Spaces: {{item.spaces}}</p>
-                <button v-if="item.spaces > 0" v-on:click="add_to_cart(item)">Add To Cart</button>
+                <button v-if="item.spaces > 0" @click="add_to_cart(item)">Add To Cart</button>
                 <button v-else disabled>Add To Cart</button>
             </div>
           </div>
@@ -67,6 +67,7 @@
 </template>
 
 <script>
+// import AppVue from '../App.vue'
 
 const capitalize = (str) =>{
     if(str != '' & typeof(str) == "string"){
@@ -82,13 +83,11 @@ const capitalize = (str) =>{
 
 export default {
   name: 'LessonComponent',
-  props: {
-    msg: String
-  },
   created(){
     this.loadProducts()
   },
   methods:{
+    
     showCheckout(){
         this.showProducts = this.showProducts ? false : true
     },
@@ -107,23 +106,7 @@ export default {
         }
 
         this.cart.push(data)
-
-    },
-    remove_from_cart(cart_item){
-        for (let i = 0; i < this.products.length; i++) {
-            const item = this.products[i]
-            if(item.id == cart_item.item.id){
-                item.spaces++
-            }
-        }
-        for(let i = 0; i < this.cart.length; i++){
-            const item = this.cart[i]
-            if(cart_item.id == item.id){
-                this.cart.splice(i,1)
-                break;
-            }
-        }
-        
+        this.$emit("add-cart",JSON.stringify(data))
     },
     search_func(query){
         let val = this.sort_value.toLowerCase()
@@ -142,7 +125,7 @@ export default {
 
         
         if(query.trim() == ''){
-            // this.product_copy = [...products]
+          this.loadProducts()
             this.order_sort(this.sort_value)
         }
 
@@ -176,20 +159,22 @@ export default {
                     if(a[criteria] > b[criteria]){
                         return -1
                     }
-                
                     if(b[criteria] > a[criteria]){
                         return 1
                     }
-                
                     return 0
                 })
             }
         }else{
             this.searchTerm = "Please choose criteria eg. subject, location, price."
-            // this.product_copy = [...products]
+            this.loadProducts()
         }
     },
     loadProducts() {
+      this.product_copy = []
+
+      // console.log(AppVue.data()["products"]);
+
       this.products.forEach(x=>{
         this.product_copy.push(x);
       })
@@ -220,7 +205,7 @@ export default {
         location:"London",
         price:22,
         spaces:5,
-        image:"assets/art_and_craft.jpg"
+        image:"art_and_craft.jpg"
     },
     {
         id:2,
@@ -228,7 +213,7 @@ export default {
         location:"Oxford",
         price:19,
         spaces:5,
-        image:"assets/sport.jpg"
+        image:"sport.jpg"
     },
     {
         id:3,
@@ -236,7 +221,7 @@ export default {
         location:"London",
         price:20,
         spaces:5,
-        image:"assets/music.jpg"
+        image:"music.jpg"
     },
     {
         id:4,
@@ -244,7 +229,7 @@ export default {
         location:"York",
         price:17,
         spaces:5,
-        image:"assets/theater.jpg"
+        image:"theater.jpg"
     },
     {
         id:5,
@@ -252,7 +237,7 @@ export default {
         location:"Bristol",
         price:7,
         spaces:5,
-        image:"assets/coding.jpg"
+        image:"coding.jpg"
     },
     {
         id:6,
@@ -260,7 +245,7 @@ export default {
         location:"London",
         price:8,
         spaces:5,
-        image:"assets/cooking.jpg"
+        image:"cooking.jpg"
     },
     {
         id:7,
@@ -268,7 +253,7 @@ export default {
         location:"Manchester",
         price:12,
         spaces:5,
-        image:"assets/religious.jpg"
+        image:"religious.jpg"
     },
     {
         id:8,
@@ -276,7 +261,7 @@ export default {
         location:"Liverpool",
         price:9,
         spaces:5,
-        image:"assets/community.jpg"
+        image:"community.jpg"
     },
     {
         id:9,
@@ -284,7 +269,7 @@ export default {
         location:"London",
         price:13,
         spaces:5,
-        image:"assets/theater.jpg"
+        image:"theater.jpg"
     },
     {
         id:10,
@@ -292,7 +277,7 @@ export default {
         location:"Chelsey",
         price:16,
         spaces:5,
-        image:"assets/music.jpg"
+        image:"music.jpg"
     }
       ],
       product_copy:[],

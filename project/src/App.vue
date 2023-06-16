@@ -2,10 +2,11 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <header>
     <h1>{{sitename}}</h1>
-    <button @click="cycle">{{currentViewStr}}</button>
+    <button @click="cycle" >{{currentViewStr}}</button>
   </header>
   <main>
-    <component :is="currentView"/>
+    <component :is="currentView"   @click="handleAddToCart"/>
+    <!-- <LessonComponent @add-cart-event="HandleCartEvents"></LessonComponent> -->
   </main>
 </template>
 
@@ -15,19 +16,103 @@ import LessonComponent from './components/Lesson.vue'
 
 export default {
   name: 'App',
-  components: {
-    LessonComponent
-  },
+  
   data(){
       // console.log(LessonComponent.data()["cart"]);
       return {
           sitename:"After School Activities Store",
           currentView: LessonComponent,
           currentViewStr: "Cart",
-          cart:[]
+          cart:[],
+          products:[
+              {
+                id:1,
+                subject:"Art And Craft",
+                location:"London",
+                price:22,
+                spaces:5,
+                image:"art_and_craft.jpg"
+            },
+            {
+                id:2,
+                subject:"Sport",
+                location:"Oxford",
+                price:19,
+                spaces:5,
+                image:"sport.jpg"
+            },
+            {
+                id:3,
+                subject:"Music",
+                location:"London",
+                price:20,
+                spaces:5,
+                image:"music.jpg"
+            },
+            {
+                id:4,
+                subject:"Theater",
+                location:"York",
+                price:17,
+                spaces:5,
+                image:"theater.jpg"
+            },
+            {
+                id:5,
+                subject:"Coding And Programming",
+                location:"Bristol",
+                price:7,
+                spaces:5,
+                image:"coding.jpg"
+            },
+            {
+                id:6,
+                subject:"Cooking And Baking",
+                location:"London",
+                price:8,
+                spaces:5,
+                image:"cooking.jpg"
+            },
+            {
+                id:7,
+                subject:"Religous Activities",
+                location:"Manchester",
+                price:12,
+                spaces:5,
+                image:"religious.jpg"
+            },
+            {
+                id:8,
+                subject:"Community Services",
+                location:"Liverpool",
+                price:9,
+                spaces:5,
+                image:"community.jpg"
+            },
+            {
+                id:9,
+                subject:"Theater",
+                location:"London",
+                price:13,
+                spaces:5,
+                image:"theater.jpg"
+            },
+            {
+                id:10,
+                subject:"Music",
+                location:"Chelsey",
+                price:16,
+                spaces:5,
+                image:"music.jpg"
+            }
+          ],
       }
   },
   methods:{
+    handleAddToCart(data) {
+      console.log(data);
+      this.cart.push(JSON.parse(data));
+    },
     cycle(){
         if(this.currentView["name"] == LessonComponent["name"]){
           this.currentView = CartComponent
@@ -42,14 +127,6 @@ export default {
 </script>
 
 <style>
-/* #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-} */
 *{
     margin: 0%;
     padding: 0%;
