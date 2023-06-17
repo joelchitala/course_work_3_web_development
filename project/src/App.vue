@@ -35,6 +35,9 @@ import LessonComponent from './components/Lesson.vue'
 
 export default {
   name: 'App',
+  created(){
+
+  },
   computed:{
     cartItemCount(){
         return this.cart.length || "Empty";
@@ -134,11 +137,6 @@ export default {
           }
             ],
       }
-  },
-  watch: {
-    cart() {
-      return this.cart
-    },
   },
   methods:{
     handleAddToCart(data) {

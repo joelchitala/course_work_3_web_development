@@ -139,30 +139,13 @@ export default {
     order_sort(criteria){
         criteria = criteria.toLowerCase()
         if(criteria != "all"){
-            this.searchTerm = capitalize(criteria)
-            
-            if(this.order_value == "Ascending"){
-
-                this.product_copy.sort((a,b)=>{
-                    if(a[criteria] > b[criteria]){
-                        return 1
-                    }
-                    if(b[criteria] > a[criteria]){
-                        return -1
-                    }
-                    return 0
-                })
-            }else{
-                this.product_copy.sort((a,b)=>{
-                    if(a[criteria] > b[criteria]){
-                        return -1
-                    }
-                    if(b[criteria] > a[criteria]){
-                        return 1
-                    }
-                    return 0
-                })
-            }
+            this.searchTerm = criteria
+            const isAscending = this.order_value == "Ascending"
+            this.product_copy.sort((a,b)=>{
+                if(a[criteria] > b[criteria]) return isAscending ? 1 : -1
+                if(b[criteria] > a[criteria]) return isAscending ? -1 : 1                       
+                return 0
+            })
         }else{
             this.searchTerm = "Please choose criteria eg. subject, location, price."
             this.loadProducts()
