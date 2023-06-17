@@ -36,7 +36,7 @@ import LessonComponent from './components/Lesson.vue'
 export default {
   name: 'App',
   created(){
-
+   this.loadProducts()
   },
   computed:{
     cartItemCount(){
@@ -54,96 +54,26 @@ export default {
           currentViewStr: "Cart",
           showProducts:true,
           cart:[],
-          products:[
-            {
-              id:1,
-              subject:"Art And Craft",
-              location:"London",
-              price:22,
-              spaces:5,
-              image:"/assets/art_and_craft.jpg"
-          },
-          {
-              id:2,
-              subject:"Sport",
-              location:"Oxford",
-              price:19,
-              spaces:5,
-              image:"/assets/sport.jpg"
-          },
-          {
-              id:3,
-              subject:"Music",
-              location:"London",
-              price:20,
-              spaces:5,
-              image:"/assets/music.jpg"
-          },
-          {
-              id:4,
-              subject:"Theater",
-              location:"York",
-              price:17,
-              spaces:5,
-              image:"/assets/theater.jpg"
-          },
-          {
-              id:5,
-              subject:"Coding And Programming",
-              location:"Bristol",
-              price:7,
-              spaces:5,
-              image:"/assets/coding.jpg"
-          },
-          {
-              id:6,
-              subject:"Cooking And Baking",
-              location:"London",
-              price:8,
-              spaces:5,
-              image:"/assets/cooking.jpg"
-          },
-          {
-              id:7,
-              subject:"Religous Activities",
-              location:"Manchester",
-              price:12,
-              spaces:5,
-              image:"/assets/religious.jpg"
-          },
-          {
-              id:8,
-              subject:"Community Services",
-              location:"Liverpool",
-              price:9,
-              spaces:5,
-              image:"/assets/community.jpg"
-          },
-          {
-              id:9,
-              subject:"Theater",
-              location:"London",
-              price:13,
-              spaces:5,
-              image:"/assets/theater.jpg"
-          },
-          {
-              id:10,
-              subject:"Music",
-              location:"Chelsey",
-              price:16,
-              spaces:5,
-              image:"/assets/music.jpg"
-          }
-            ],
+          products:[]
       }
   },
   methods:{
+    loadProducts(){
+      const port = 3000
+      fetch(`http://localhost:${port}/collection/lessons`).then((res)=>{
+        res.json().then((json)=>{
+            this.products = json.map((x)=>{
+                x["image"] = `/assets/${x["image"]}`
+                return x
+            })
+        })
+      })
+    },
     handleAddToCart(data) {
       data = JSON.parse(data)
       for (let i = 0; i < this.products.length; i++) {
           const product = this.products[i]
-          if(data["item"].id == product.id){
+          if(data["item"]._id == product._id){
               product.spaces--
           }
       }
@@ -167,7 +97,7 @@ export default {
       })
       for (let i = 0; i < this.products.length; i++) {
           const product = this.products[i]
-          if(data["item"].id == product.id){
+          if(data["item"]._id == product._id){
               product.spaces++
           }
       }

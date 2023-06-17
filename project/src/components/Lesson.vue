@@ -69,17 +69,17 @@
 <script>
 // import AppVue from '../App.vue'
 
-const capitalize = (str) =>{
-    if(str != '' & typeof(str) == "string"){
-        let temp_str = str[0].toUpperCase()
-        for(let i = 1; i < str.length; i++){
-            temp_str += str[i] 
-        }
+// const capitalize = (str) =>{
+//     if(str != '' & typeof(str) == "string"){
+//         let temp_str = str[0].toUpperCase()
+//         for(let i = 1; i < str.length; i++){
+//             temp_str += str[i] 
+//         }
 
-        return temp_str
-    }
-    return null
-}
+//         return temp_str
+//     }
+//     return null
+// }
 
 export default {
   name: 'LessonComponent',
@@ -123,7 +123,7 @@ export default {
 
         
         if(query.trim() == ''){
-          this.loadProducts()
+            this.loadProducts()
             this.order_sort(this.sort_value)
         }
 
@@ -153,7 +153,7 @@ export default {
     },
     loadProducts() {
       this.product_copy = []
-
+    
       this.productItems.forEach(x=>{
         this.product_copy.push(x);
       })
