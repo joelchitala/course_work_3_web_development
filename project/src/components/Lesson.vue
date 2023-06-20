@@ -30,17 +30,6 @@
 
     <section style="width: 100%;">
       <div style="width: 100%; display: inline-flex; align-items: center; justify-content: flex-start;">
-          <!-- <div style="align-self: flex-end; margin-right: 2rem;">
-              <button style="font-size: 1.15rem;" v-if="canRemoveFromCart" v-on:click="showCheckout">
-                  {{cartItemCount}}
-                  <i class="bx bx-cart"></i>
-                  Checkout
-              </button>
-              <button style="font-size: 1.15rem;" disabled="disabled" v-else>
-                  {{cartItemCount}}
-                  <i class="bx bx-cart"></i>
-              </button>
-          </div> -->
           <div id="search">
               <input type="text" v-bind:placeholder="searchTerm" v-if="search" v-model="searchInput">
               <button v-on:click="search"><i class='bx bx-search'></i></button>

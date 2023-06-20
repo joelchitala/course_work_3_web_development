@@ -44,64 +44,39 @@
         }
     },
     emits: ['remove-cart','order-submitted'],
-    created(){
-        for (let i = 0; i < this.cartItems.length; i++) {
-            const item = this.cartItems[i];
-            this.cart.push(item)
-        }
-    },
     computed:{
         getCartItems(){
-                return this.cart
-            },
-            cartItemCount(){
-                return this.cart.length || "Empty";
-            },
-            
-            canRemoveFromCart(){
-                return this.cart.length > 0
-            },
-            canCheckout(){
-                const user = this.user_data
-                return user.name.match(/^[A-Za-z\s]+$/) && user.phone.match(/^[0-9]+$/)
-            }
+            return this.cartItems
+        },
+        cartItemCount(){
+            return this.cartItems.length || "Empty";
+        },
         
+        canRemoveFromCart(){
+            return this.cartItems.length > 0
         },
-        methods:{
-            remove_from_cart(data){
-                const temp = []
-                for (let i = 0; i < this.cart.length; i++) {
-                    const cart_item = this.cart[i]
-                    if(data["id"] != cart_item["id"]){
-                        temp.push(cart_item)
-                    }
-                }
-                this.cart = []
-                temp.forEach(x =>{
-                    this.cart.push(x)
-                })
-                this.$emit("remove-cart",JSON.stringify(data))
-            },
-            checkout(){
-                alert("Order submited")
-                this.cart = []
-                this.$emit("order-submitted")
-            }
+        canCheckout(){
+            const user = this.user_data
+            return user.name.match(/^[A-Za-z\s]+$/) && user.phone.match(/^[0-9]+$/)
+        }
+    },
+    methods:{
+        remove_from_cart(data){
+            this.$emit("remove-cart",JSON.stringify(data))
         },
-        watch:{
-            cart(){
-                this.cart
-            }
-        },
-        data(){
-            return{
-                cart:[],
-                user_data:{
-                    name:"",
-                    phone:"",
-                }
+        checkout(){
+            alert("Order submited")
+            this.$emit("order-submitted")
+        }
+    },
+    data(){
+        return{
+            user_data:{
+                name:"",
+                phone:"",
             }
         }
+    }
   }
   </script>
   

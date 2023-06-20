@@ -23,8 +23,8 @@
   </header>
   <main>
     <component :is="currentView" :cart-items="cart" :product-items="products"  
-    @add-cart="handleAddToCart"  @remove-cart="handleRemoveFromCart" @order-submitted="handleOrderSubmitted"/>
-    <!-- <LessonComponent @add-cart-event="HandleCartEvents"></LessonComponent> -->
+    @add-cart="handleAddToCart"  @remove-cart="handleRemoveFromCart" 
+    @order-submitted="handleOrderSubmitted"/>
   </main>
 </template>
 
@@ -47,7 +47,6 @@ export default {
     },
   },
   data(){
-      // console.log(LessonComponent.data()["cart"]);
       return {
           sitename:"After School Activities Store",
           currentView: LessonComponent,
@@ -58,6 +57,7 @@ export default {
       }
   },
   methods:{
+    
     loadProducts(){
       const port = 3000
       fetch(`http://localhost:${port}/collection/lessons`).then((res)=>{
