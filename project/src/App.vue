@@ -57,7 +57,6 @@ export default {
       }
   },
   methods:{
-    
     loadProducts(){
       const port = 3000
       fetch(`http://localhost:${port}/collection/lessons`).then((res)=>{

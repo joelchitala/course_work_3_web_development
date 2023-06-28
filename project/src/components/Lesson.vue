@@ -56,26 +56,12 @@
 </template>
 
 <script>
-// import AppVue from '../App.vue'
-
-// const capitalize = (str) =>{
-//     if(str != '' & typeof(str) == "string"){
-//         let temp_str = str[0].toUpperCase()
-//         for(let i = 1; i < str.length; i++){
-//             temp_str += str[i] 
-//         }
-
-//         return temp_str
-//     }
-//     return null
-// }
 
 export default {
   name: 'LessonComponent',
   props:{
         productItems: {
             type: Array,
-            // default: () => [],
         }
     },
   emits: ['add-cart'],
