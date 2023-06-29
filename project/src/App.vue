@@ -19,7 +19,6 @@
           Go back
       </button>
     </div>
-    <!-- <button @click="cycle" >{{currentViewStr}}</button> -->
   </header>
   <main>
     <component :is="currentView" :cart-items="cart" :product-items="products"  
